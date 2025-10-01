@@ -10,7 +10,7 @@
 -------------------------------------------------------------------------------
 module CatalogoCD where
 -- import Data.XXX
-
+--
 type Serie = (Titulo, NTemporadas, EpisodiosXTemporada, DuracionM, GeneroS, Edad )
 data GeneroS = Accion | Animacion | Comedia | Drama | Documental | SciFic | Suspense | Romance | Terror
 type Edad = Int                -- edad minima para consumir el contenido 
