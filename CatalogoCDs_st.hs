@@ -2,15 +2,17 @@
 --  PRACTICA: Gestion de Catalogo de Contenido Digital     
 --  PF  2025-2026
 
---  Num. del equipo registrado en la egela: Eq_
--- Apellidos del primer integrante:
--- Apellidos del segundo integrante:  
+--  Num. del equipo registrado en la egela: Eq26
+-- Apellidos del primer integrante: Galarraga Insausti
+-- Apellidos del segundo integrante: Gomez Sarasola
 -------------------------------------------------------------------------------
 -- GRUPO C: Desarrollo sobre Series
 -------------------------------------------------------------------------------
 module CatalogoCD where
 -- import Data.XXX
 --
+
+type Titulo = String
 type Serie = (Titulo, NTemporadas, EpisodiosXTemporada, DuracionM, GeneroS, Edad )
 data GeneroS = Accion | Animacion | Comedia | Drama | Documental | SciFic | Suspense | Romance | Terror
 type Edad = Int                -- edad minima para consumir el contenido 
@@ -22,9 +24,9 @@ type DuracionM = Int           -- minutos, promedio de duracion de los episodios
 -- Funciones extractoras y auxiliares BASICAS: Series
 -- ====================================
 
-{-
+
 -- Extrae el titulo de la serie.
-getTituloS :: Serie -> Titulo	
+getTituloS :: Serie -> Titulo
 
 
 -- Extrae el num. de temporadas.
@@ -54,7 +56,7 @@ printSeries = putStr .concat .map printSerie
 
 -- Implementacion del quicksort por clave
 qsortBy :: Ord b => (a -> b) -> [a] -> [a]
--}
+
 
 
 -- ====================================
