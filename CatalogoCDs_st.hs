@@ -27,27 +27,28 @@ type DuracionM = Int           -- minutos, promedio de duracion de los episodios
 
 -- Extrae el titulo de la serie.
 getTituloS :: Serie -> Titulo
-
-
+getTituloS (t, _, _, _, _, _) = t
 -- Extrae el num. de temporadas.
 getTemporadas :: Serie -> NTemporadas
-
+getTemporadas (_, n, _, _, _, _) = n
 
 -- Extrae la duracion por episodio.
 getDuracionEp :: Serie -> DuracionM
+getDuracionEp (_, _, _, d, _, _) = d
 
 
 -- Extrae el genero de la serie AV.
-getGeneroS :: Serie -> GeneroS 	
+getGeneroS :: Serie -> GeneroS
+getGeneroS (_, _, _, _, g, _) = g
 
 
 -- Extrae la edad minima recomendada.
 getEdad :: Serie -> Edad 
-
+getEdad (_, _, _, _, _, e) = e
 
 -- Titulo, Nº de Temporadas, y Edad minima de la serie, seguido de salto de linea
-printSerie :: Serie ->String
-
+printSerie :: Serie -> String
+printSerie (t, numTem, _, _, _, edadMin) = "Titulo: " ++ t ++ ", " ++ "Numero de Temporadas: " ++ show numTem ++ ", " ++ "Edad mínima recomendada: " ++ show edadMin ++ "\n"
 
 -- Imprime la lista completa de canciones (playlist), formateada
 printSeries :: [Serie] -> IO ()
@@ -56,7 +57,10 @@ printSeries = putStr .concat .map printSerie
 
 -- Implementacion del quicksort por clave
 qsortBy :: Ord b => (a -> b) -> [a] -> [a]
-
+qsortBy f [] = []
+qsortBy f (x:xs) = qsortBy f [ y | y <- xs, f y < f x]++
+    (x: qsortBy f [ y | y <-  xs, f y == f x]++
+        qsortBy f [ y | y <-  xs, f y >= f x])
 
 
 -- ====================================
