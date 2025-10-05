@@ -47,6 +47,9 @@ getGeneroS (_, _, _, _, g, _) = g
 getEdad :: Serie -> Edad 
 getEdad (_, _, _, _, _, e) = e
 
+getEpisodiosPorTemporada :: Serie -> EpisodiosXTemporada
+getEpisodiosPorTemporada (_, _, ept, _, _, _) = ept
+
 -- Titulo, Nº de Temporadas, y Edad minima de la serie, seguido de salto de linea
 printSerie :: Serie -> String
 printSerie (t, numTem, _, _, _, edadMin) = "Titulo: " ++ t ++ ", " ++ "Numero de Temporadas: " ++ show numTem ++ ", " ++ "Edad mínima recomendada: " ++ show edadMin ++ "\n"
@@ -110,35 +113,49 @@ totalMinutosCatalogo :: [Serie] -> DuracionM
 totalMinutosCatalogo [] = 0
 totalMinutosCatalogo (x:xs) = totalMinutosSerie(x) + totalMinutosCatalogo xs
 
-totalMinutosSerie :: Serie -> Int
-totalMinutosSerie ( _, nTemporadas, episodiosXTemporada, duracionM, _, _ ) =
-  nTemporadas * episodiosXTemporada * duracionM
+
 
 -- 6
 -- Dado un listado de series, identifica el genero (de series) con el más series
-{-generoSMasProlifico :: [Serie] -> GeneroS 
+--generoSMasProlifico :: [Serie] -> GeneroS
+--generoSMasProlifico [] = error ""
+--generoSMasProlifico xs = getGeneroS (head y) 
+--    where
+--        y = qsortBy (\z -> getGeneroS z) xs
 
 -- 7	
 -- Listado de series ordenado decrecientemente por número total de episodios
-
 rankingSeriesPorNumTotalEpisodios:: [Serie] -> [(GeneroS, Int)]
+rankingSeriesPorNumTotalEpisodios [] = []
+rankingSeriesPorNumTotalEpisodios xs = map (\x -> (getGeneroS x, getTemporadas x * getEpisodiosPorTemporada x)) zs
+   where 
+    zs = reverse (qsortBy (\y -> getTemporadas y * getEpisodiosPorTemporada y) xs)
+                    
 
 -- 8 	
 -- Listado de series ordenado crecientemente por duración total (en minutos), 
 -- considerando todos los episodios de todas sus temporadas
-rankingSeriesMasBreves:: [Serie]→[(Serie, Int)]
+rankingSeriesMasBreves:: [Serie] -> [(Serie, Int)]
+rankingSeriesMasBreves xs = map (\x -> (x, getTemporadas x * getEpisodiosPorTemporada x * getDuracionEp x)) zs 
+    where 
+        zs = qsortBy (\y -> totalMinutosSerie y) xs
+
 
 -- 9
 -- Dado un listado de series, identifica los generos (de serie) que NO estan 
 -- representados (que faltan) con respecto al conjunto completo de generos definidos
-generosSerieSinRepresentacion :: [Serie]→[GeneroS]
--}
+--generosSerieSinRepresentacion :: [Serie] -> [GeneroS]
+--generosSerieSinRepresentacion [] = []
+--generosSerieSinRepresentacion (x:xs)
+--}
 
 
 -- =============================
 -- Resto de funciones auxiliares (para gestionar el catalogo de series)
 -- ============================
-
+totalMinutosSerie :: Serie -> Int
+totalMinutosSerie ( _, nTemporadas, episodiosXTemporada, duracionM, _, _ ) =
+  nTemporadas * episodiosXTemporada * duracionM
 
 
 -- ======================================
