@@ -75,12 +75,14 @@ qsortBy f (x:xs) = qsortBy f [ y | y <- xs, f y < f x]++
 -- 1
 -- Dado un listado de series, calcula en numero de series por genero
 -- incluido en el mismo
-{-
-ContarNumSeriesXGenero :: [Serie] -> [(GeneroS, Int)]
+contarNumSeriesXGenero :: [Serie] -> [(GeneroS, Int)]
+contarNumSeriesXGenero [] = []
+contarNumSeriesXGenero xs = map (\g -> (head g, length g)) zs 
+    where
+        zs = group(sort(map getGeneroS xs))
 --2	
 -- Dada la edad y un listado de series, selecciona todas las series cuya edad
 -- recomendada sea igual o superior a la dada
--}
 seriesParaMayoresDe :: Edad -> [Serie]-> [Serie]
 seriesParaMayoresDe edad [] = []
 seriesParaMayoresDe edad (x:xs)
@@ -112,7 +114,6 @@ miSeleccionDeSeriesMasCortasQue n dm (x:xs)
 totalMinutosCatalogo :: [Serie] -> DuracionM
 totalMinutosCatalogo [] = 0
 totalMinutosCatalogo (x:xs) = totalMinutosSerie(x) + totalMinutosCatalogo xs
-
 
 
 -- 6
