@@ -9,7 +9,7 @@
 -- GRUPO C: Desarrollo sobre Series
 -------------------------------------------------------------------------------
 module CatalogoCD where
-import Data.List (group, sort)
+import Data.List (group, sort, (\\), intersect)
 --
 
 type Titulo = String
@@ -145,11 +145,9 @@ rankingSeriesMasBreves xs = map (\x -> (x, getTemporadas x * getEpisodiosPorTemp
 -- 9
 -- Dado un listado de series, identifica los generos (de serie) que NO estan 
 -- representados (que faltan) con respecto al conjunto completo de generos definidos
---generosSerieSinRepresentacion :: [Serie] -> [GeneroS]
---generosSerieSinRepresentacion [] = []
---generosSerieSinRepresentacion (x:xs)
---}
-
+generosSerieSinRepresentacion :: [Serie] -> [GeneroS]
+generosSerieSinRepresentacion [] = []
+generosSerieSinRepresentacion xs = getGeneroS' \\ getGeneroS'' xs
 
 -- =============================
 -- Resto de funciones auxiliares (para gestionar el catalogo de series)
@@ -158,7 +156,13 @@ totalMinutosSerie :: Serie -> Int
 totalMinutosSerie ( _, nTemporadas, episodiosXTemporada, duracionM, _, _ ) =
   nTemporadas * episodiosXTemporada * duracionM
 
+getGeneroS' :: [GeneroS]
+getGeneroS' = [Accion,Animacion,Comedia,Drama,Documental,SciFic,Suspense,Romance,Terror]
 
+getGeneroS'' :: [Serie] -> [GeneroS]
+getGeneroS'' xs = map(\g -> head g) zs
+   where
+       zs = group(sort(map getGeneroS xs))
 -- ======================================
 -- Catalogos/Listados de ejemplos: Datos de prueba de series
 -- ======================================
