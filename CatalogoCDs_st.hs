@@ -118,12 +118,12 @@ totalMinutosCatalogo (x:xs) = totalMinutosSerie(x) + totalMinutosCatalogo xs
 
 -- 6
 -- Dado un listado de series, identifica el genero (de series) con el más series
---generoSMasProlifico :: [Serie] -> GeneroS
---generoSMasProlifico [] = error ""
---generoSMasProlifico xs = getGeneroS (head y) 
---    where
---        y = qsortBy (\z -> getGeneroS z) xs
-
+generoSMasProlifico :: [Serie] -> GeneroS
+generoSMasProlifico [] = error ""
+generoSMasProlifico xs = fst (last ys)
+    where
+        ys = qsortBy (\y -> snd y) zs
+        zs = contarNumSeriesXGenero xs
 -- 7	
 -- Listado de series ordenado decrecientemente por número total de episodios
 rankingSeriesPorNumTotalEpisodios:: [Serie] -> [(GeneroS, Int)]
