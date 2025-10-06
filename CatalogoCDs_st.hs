@@ -9,7 +9,7 @@
 -- GRUPO C: Desarrollo sobre Series
 -------------------------------------------------------------------------------
 module CatalogoCD where
-import Data.List (group, sort, (\\), intersect)
+import Data.List (group, sort, (\\))
 --
 
 type Titulo = String
@@ -64,7 +64,7 @@ qsortBy :: Ord b => (a -> b) -> [a] -> [a]
 qsortBy f [] = []
 qsortBy f (x:xs) = qsortBy f [ y | y <- xs, f y < f x]++
     (x: qsortBy f [ y | y <-  xs, f y == f x]++
-        qsortBy f [ y | y <-  xs, f y >= f x])
+        qsortBy f [ y | y <-  xs, f y > f x])
 
 
 -- ====================================
@@ -137,7 +137,7 @@ rankingSeriesPorNumTotalEpisodios xs = map (\x -> (getGeneroS x, getTemporadas x
 -- Listado de series ordenado crecientemente por duración total (en minutos), 
 -- considerando todos los episodios de todas sus temporadas
 rankingSeriesMasBreves:: [Serie] -> [(Serie, Int)]
-rankingSeriesMasBreves xs = map (\x -> (x, getTemporadas x * getEpisodiosPorTemporada x * getDuracionEp x)) zs 
+rankingSeriesMasBreves xs = map (\x -> (x, totalMinutosSerie x)) zs 
     where 
         zs = qsortBy (\y -> totalMinutosSerie y) xs
 
