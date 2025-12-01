@@ -37,14 +37,6 @@ getEdad (_, _, _, _, _, e) = e
 getEpisodiosPorTemporada :: Serie -> EpisodiosXTemporada
 getEpisodiosPorTemporada (_, _, ept, _, _, _) = ept
 
--- Titulo, Nº de Temporadas, y Edad minima de la serie, seguido de salto de linea
-printSerie :: Serie -> String
-printSerie (t, numTem, _, _, _, edadMin) = "Titulo: " ++ t ++ ", " ++ "Numero de Temporadas: " ++ show numTem ++ ", " ++ "Edad mínima recomendada: " ++ show edadMin ++ "\n"
-
--- Imprime la lista completa de canciones (playlist), formateada
-printSeries :: [Serie] -> IO ()
-printSeries = putStr .concat .map printSerie
-
 
 -- =============================
 -- Resto de funciones auxiliares (para gestionar el catalogo de series)

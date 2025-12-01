@@ -13,10 +13,18 @@ import Data.List (group, sort, (\\))
 import Auxiliares        
 import Tipos
 --
-
 -- ====================================
 -- Funciones principales sobre Series
 -- ====================================
+
+-- Titulo, Nº de Temporadas, y Edad minima de la serie, seguido de salto de linea
+printSerie :: Serie -> String
+printSerie (t, numTem, _, _, _, edadMin) = "Titulo: " ++ t ++ ", " ++ "Numero de Temporadas: " ++ show numTem ++ ", " ++ "Edad mínima recomendada: " ++ show edadMin ++ "\n"
+
+-- Imprime la lista completa de canciones (playlist), formateada
+printSeries :: [Serie] -> IO ()
+printSeries = putStr .concat .map printSerie
+
 
 -- 1
 -- Dado un listado de series, calcula en numero de series por genero
