@@ -1,0 +1,10 @@
+Breaking Bad;5;13;47;Drama;18
+Rick y Morty;6;10;22;Animacion;16
+Friends;10;24;22;Comedia;12
+Stranger Things;4;8;50;SciFic;14
+The Office;9;24;22;Comedia;12
+Narcos;3;10;50;Accion;18
+Planet Earth;1;11;50;Documental;6
+Dark;3;8;55;Suspense;16
+Outlander;7;12;60;Romance;16
+The Haunting of Hill House;1;10;50;Terror;16
