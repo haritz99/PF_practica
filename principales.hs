@@ -9,7 +9,7 @@
 -- GRUPO C: Desarrollo sobre Series
 -------------------------------------------------------------------------------
 module Principales where
-import Data.List (group, sort, (\\))       
+import Data.List (group, sort, (\\))    
 import Auxiliares        
 import Tipos
 --
@@ -40,7 +40,7 @@ contarNumSeriesXGenero = map (\g -> (head g, length g)) . group . sort . map get
 -- recomendada sea igual o superior a la dada
 seriesParaMayoresDe :: Edad -> [Serie]-> [Serie]
 seriesParaMayoresDe edad [] = []
-seriesParaMayoresDe edad (x:xs) = filter (\y -> getEdad y >= edad) xs
+seriesParaMayoresDe edad xs = filter (\y -> getEdad y >= edad) xs
 
 -- 3
 -- Dado un numero de temporadas y un listado de series, extrae los títulos de 

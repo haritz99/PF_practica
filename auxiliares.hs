@@ -1,5 +1,6 @@
 module Auxiliares where
 import Data.List (group, sort, (\\))
+import Text.Read (readMaybe)
 import Tipos
     ( DuracionM,
       EpisodiosXTemporada,
@@ -62,3 +63,35 @@ getGeneroS'' :: [Serie] -> [GeneroS]
 getGeneroS'' xs = map(\g -> head g) zs
    where
        zs = group(sort(map getGeneroS xs))
+
+separar :: Char -> String -> [String]
+separar _ [] = [""]
+separar delimitador (x:xs)
+    | x == delimitador = "" : rest
+    | otherwise = (x : head rest) : tail rest
+    where
+      rest = separar delimitador xs
+
+readMaybeGenero :: String -> Maybe GeneroS
+readMaybeGenero str = case str of
+  "Accion" -> Just Accion
+  "Animacion" -> Just Animacion 
+  "Comedia" -> Just Comedia 
+  "Drama" -> Just Drama 
+  "Documental" -> Just Documental 
+  "SciFic" -> Just SciFic 
+  "Suspense" -> Just Suspense 
+  "Romance" -> Just Romance 
+  "Terror" -> Just Terror
+  _ -> Nothing
+
+parseLinea :: String -> Maybe Serie
+parseLinea linea = case separar ';' linea of
+  [t, nt, et, d, g, e] -> do
+    nT <- readMaybe nt
+    eT <- readMaybe et 
+    dur <- readMaybe d 
+    gen <- readMaybeGenero g 
+    ed <- readMaybe e
+    return (t, nT, eT, dur, gen, ed)
+  _ -> Nothing
