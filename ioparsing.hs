@@ -12,7 +12,9 @@ cargarCatalogoDesdeFichero path = do
     let lineas = zip [1..] (lines contenido)
         resultados = 
             [maybe (Left ("Linea " ++ show i ++ ": formato inválido" ))
-                    Right (parseLinea linea)  
+                    Right 
+                    (parseLinea linea)      
+                     -- Si parseLinea linea devuelve Nothing maybe devuelve Left y si devuleve Just x devuelve Right, es decir, devuelve el error si falla y la linea si no falla.
                     | (i, linea) <- lineas
             ]
         (errores, series) = partitionEithers resultados
