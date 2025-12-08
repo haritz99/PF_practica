@@ -4,14 +4,21 @@ import Principales (printSerie, misSeries, seriesParaMayoresDe, rankingSeriesPor
 import Auxiliares (parseLinea)
 import Text.Read (readMaybe)
 import Data.ByteString (toFilePath)
-import Data.Maybe (mapMaybe)
+import Data.Either (partitionEithers)
 
 cargarCatalogoDesdeFichero:: FilePath -> IO [Serie]
 cargarCatalogoDesdeFichero path = do
     contenido <- readFile path
-    let lineas = lines contenido
-    let contenidoparseado = mapMaybe parseLinea lineas
-    return contenidoparseado
+    let lineas = zip [1..] (lines contenido)
+        resultados = 
+            [maybe (Left ("Linea " ++ show i ++ ": formato inválido" ))
+                    Right (parseLinea linea)  
+                    | (i, linea) <- lineas
+            ]
+        (errores, series) = partitionEithers resultados
+    mapM_ putStrLn errores 
+    putStrLn (show (length series) ++ " series cargadas.")
+    return series
 
 imprimirCatalogoConsola:: [Serie] -> IO ()
 imprimirCatalogoConsola xs = do 
